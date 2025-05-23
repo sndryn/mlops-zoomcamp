@@ -1,1 +1,5 @@
 .DS_STORE
+**/mlflow.db
+**/mlruns/**
+**/models/**
+**/preprocessor**/
