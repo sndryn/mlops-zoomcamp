@@ -109,23 +109,53 @@ MLFLOW_TRACKING_URI = "sqlite:///mlflow.db"
 client = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
 ```
 
-
-
-### MLFlow Practice
+### MLFlow in Practice
 Scenario
 1. 1 DS
 2. Cross-functional team with 1 DS
 3. Multiple DS
-
 
 Configuring MLFlow
 1. Backend Store: local file system, SQLAlchemy compatible DB
 2. Artifact store: local file system, Remote (e.g. s3 Bucket)
 3. Tracking server: no server, localhost, remote host
 
-### Best practice
-1. Remote tracking server
+#### Scenario 1: A single data scientist participating in an ML competition
+
+MLflow setup:
+* Tracking server: no
+* Backend store: local filesystem
+* Artifacts store: local filesystem
+
+The experiments can be explored locally by launching the MLflow UI.
+
+#### Scenario 2: A cross-functional team with one data scientist working on an ML model
+
+MLflow setup:
+- tracking server: yes, local server
+- backend store: sqlite database
+- artifacts store: local filesystem
+
+The experiments can be explored locally by accessing the local tracking server.
+
+To run this example you need to launch the mlflow server locally by running the following command in your terminal:
+
+`mlflow server --backend-store-uri sqlite:///backend.db`
+
+#### Scenario 3: Multiple data scientists working on multiple ML models
+
+MLflow setup:
+* Tracking server: yes, remote server (EC2).
+* Backend store: postgresql database.
+* Artifacts store: s3 bucket.
+
+Remote tracking server advantage:
 - easily deployed to the cloud
 - Share experiments with other DS
 - Collaborate to build and deploy models
 - Give more visibility of the DS efforts
+
+### MLflow Limitiations;
+- no authentications and users
+- no data versioning
+- no model and data monitoring and alerting
