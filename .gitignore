@@ -1,6 +1,7 @@
 .DS_STORE
-**/mlflow.db
+**/*.db
 **/mlruns/**
 **/models/**
 **/preprocessor**/
 03-orchestration/lesson/src/prefect-mlops-zoomcamp
+*.pyc
