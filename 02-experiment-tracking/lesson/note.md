@@ -155,7 +155,7 @@ Remote tracking server advantage:
 - Collaborate to build and deploy models
 - Give more visibility of the DS efforts
 
-### MLflow Limitiations;
+### MLflow Limitiations
 - no authentications and users
 - no data versioning
 - no model and data monitoring and alerting
