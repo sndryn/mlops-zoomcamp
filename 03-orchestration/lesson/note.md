@@ -46,7 +46,7 @@ prefect init
 ```
 2. Create worker pool via UI or using 
 ```
-prefect worker start --pool "worker pool name>" -t <infra type>
+prefect worker start --pool "<worker pool name>" -t <infra type>
 ```
 3. Deploy the code
 ```
