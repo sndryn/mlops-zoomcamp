@@ -2,23 +2,18 @@ from pathlib import Path
 
 import model
 
+
 def test_prepare_features():
     model_service = model.ModelService(None)
 
-    ride = {
-        "PULocationID": 130,
-        "DOLocationID": 205,
-        "trip_distance": 3.66
-    } 
+    ride = {"PULocationID": 130, "DOLocationID": 205, "trip_distance": 3.66}
 
     actual_features = model_service.prepare_features(ride)
 
-    expected_features = {
-        "PU_DO": "130_205",
-        "trip_distance": 3.66
-    }
+    expected_features = {"PU_DO": "130_205", "trip_distance": 3.66}
 
     assert actual_features == expected_features
+
 
 def read_text(file):
     test_directory = Path(__file__).parent
@@ -52,19 +47,18 @@ class ModelMock:
         n = len(X)
         return [self.value] * n
 
+
 def test_predict():
     model_mock = ModelMock(10.0)
     model_service = model.ModelService(model_mock)
 
-    features = {
-        "PU_DO": "130_205",
-        "trip_distance": 3.66
-    }
+    features = {"PU_DO": "130_205", "trip_distance": 3.66}
 
     actual_predictions = model_service.predict(features)
     expected_predictions = 10.0
 
     assert actual_predictions == expected_predictions
+
 
 def test_lambda_handler():
     model_mock = ModelMock(10.0)
@@ -73,25 +67,17 @@ def test_lambda_handler():
 
     base64_input = read_text('data.b64')
 
-    event = {
-        "Records": [{
-                "kinesis": {
-                    "data": base64_input
-                }
-        }]
-    }
-
+    event = {"Records": [{"kinesis": {"data": base64_input}}]}
 
     actual_predictions = model_service.lambda_handler(event)
     expected_predictions = {
-        'predictions': [{
+        'predictions': [
+            {
                 'model': 'ride_duration_prediction_model',
                 'version': model_version,
-                'prediction': {
-                    'ride_duration': 10.0,
-                    'ride_id': 256   
-                }
-        }]
+                'prediction': {'ride_duration': 10.0, 'ride_id': 256},
+            }
+        ]
     }
 
     assert actual_predictions == expected_predictions

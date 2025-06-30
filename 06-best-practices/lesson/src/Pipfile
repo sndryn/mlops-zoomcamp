@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 boto3 = "*"
-mlflow = "*"
 scikit-learn = "==1.0.2"
 deepdiff = "*"
 pylint = "==2.14.4"
+mlflow = "*"
 
 [dev-packages]
 pytest = "*"

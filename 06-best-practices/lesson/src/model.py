@@ -1,8 +1,8 @@
-import base64
 import os
 import json
-import boto3
+import base64
 
+import boto3
 import mlflow
 
 
@@ -30,7 +30,8 @@ def base64_decode(encoded_data):
     ride_event = json.loads(decoded_data)
     return ride_event
 
-class ModelService():
+
+class ModelService:
 
     def __init__(self, model, model_version=None, callbacks=None):
         self.model_version = model_version
@@ -76,7 +77,8 @@ class ModelService():
 
         return {'predictions': predictions_events}
 
-class KinesisCallback():
+
+class KinesisCallback:
     def __init__(self, kinesis_client, prediction_stream_name):
         self.prediction_stream_name = prediction_stream_name
         self.kinesis_client = kinesis_client
@@ -87,14 +89,16 @@ class KinesisCallback():
         self.kinesis_client.put_record(
             StreamName=self.prediction_stream_name,
             Data=json.dumps(prediction_event),
-            PartitionKey=str(ride_id)
+            PartitionKey=str(ride_id),
         )
+
 
 def create_kinesis_client():
     endpoint_url = os.getenv("KINESIS_ENDPOINT_URL")
     if endpoint_url is None:
-        return boto3.client('kinesis')    
+        return boto3.client('kinesis')
     return boto3.client('kinesis', endpoint_url=endpoint_url)
+
 
 def init(prediction_stream_name: str, run_id: str, test_run: bool):
     model = load_model(run_id)
