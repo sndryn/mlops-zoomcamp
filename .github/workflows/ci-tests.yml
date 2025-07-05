@@ -21,15 +21,15 @@ jobs:
           python-version: 3.9
 
       - name: Install dependencies
-        working-directory: "06-best-practices/src"
+        working-directory: "06-best-practices/lesson/src"
         run: pip install pipenv && pipenv install --dev
 
       - name: Run unit tests
-        working-directory: "06-best-practices/src"
+        working-directory: "06-best-practices/lesson/src"
         run: pipenv run pytest tests/
 
       - name: Lint
-        working-directory: "06-best-practices/src"
+        working-directory: "06-best-practices/lesson/src"
         run: pipenv run pylint --recursive=y .
 
       - name: Configure AWS Credentials
@@ -40,7 +40,7 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
       - name: Integration Test
-        working-directory: "06-best-practices/src/integration-test"
+        working-directory: "06-best-practices/lesson/src/integration-test"
         run: |
           - run.sh
 
@@ -60,6 +60,6 @@ jobs:
 
       - name: TF plan
         id: plan
-        working-directory: "06-best-practices/src/infrastructure"
+        working-directory: "06-best-practices/lesson/src/infrastructure"
         run: |
           terraform init -backend-config="key=mlops-zoomcamp-prod.tfstate" --reconfigure && terraform plan --var-file vars/prod.tfvars
