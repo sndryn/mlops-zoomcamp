@@ -1,10 +1,10 @@
-name: CI Tests
+name: CI-Tests
 on:
   pull_request:
     branches:
-      - develop
+      - 'develop'
     paths:
-      - "06-best-practices/src/**"
+      - '06-best-practices/src/**'
 
 
 env:

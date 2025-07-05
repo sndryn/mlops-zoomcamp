@@ -5,3 +5,4 @@ ecr_repo_name               = "prod_stream_model_duration"
 lambda_function_local_path  = "../lambda_function.py"
 lambda_function_name        = "prod_prediction_lambda"
 docker_image_local_path     = "../Dockerfile"
+
